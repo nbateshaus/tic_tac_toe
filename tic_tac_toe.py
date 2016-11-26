@@ -63,10 +63,18 @@ def winner(board):
 
 
 def update_game(board, move, player):
-    row = int(move / 3)
-    col = move % 3
-    print('board[{}, {}]={}'.format(row, col, player))
-    board[row, col] = player
+    if move > -1 and move < 10:
+        row = int(move / 3)
+        col = move % 3
+        print('board[{}, {}]={}'.format(row, col, player))
+        if board[row, col] == ' ':
+            board[row, col] = player
+            return True
+        else:
+            return False
+    else:
+        return False
+
 
 
 def print_winner(board):
@@ -86,7 +94,8 @@ def tic_tac_toe():
     draw_game(board)
     while not game_is_done(board):
         move = int(input('What is player {} move? [0-9]\n'.format(players[player])))
-        update_game(board, move, players[player])
+        while not update_game(board, move, players[player]):
+            move = int(input('Invalid Move! What is player {} move? [0-9]\n'.format(players[player])))
         draw_game(board)
         player = (player + 1) % len(players)
     print_winner(board)
