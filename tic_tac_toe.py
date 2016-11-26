@@ -1,11 +1,3 @@
-def draw_game(board):
-    print(' {} | {} | {} '.format(board[0, 0], board[0, 1], board[0, 2]))
-    print('---+---+---')
-    print(' {} | {} | {} '.format(board[1, 0], board[1, 1], board[1, 2]))
-    print('---+---+---')
-    print(' {} | {} | {} '.format(board[2, 0], board[2, 1], board[2, 2]))
-
-
 def tiar_horizontal(board):
     for row in range(0, 3):
         if board[row, 0] == board[row, 1] and \
@@ -83,22 +75,33 @@ def print_winner(board):
         player = 'Nobody'
     print('{} wins!'.format(player))
 
-def tic_tac_toe():
-    board = {}
-    for row in range(0, 3):
-        for col in range(0, 3):
-            board[row, col] = ' '
 
-    players = 'XO'
-    player = 0
-    draw_game(board)
-    while not game_is_done(board):
-        move = int(input('What is player {} move? [0-9]\n'.format(players[player])))
-        while not update_game(board, move, players[player]):
-            move = int(input('Invalid Move! What is player {} move? [0-9]\n'.format(players[player])))
-        draw_game(board)
-        player = (player + 1) % len(players)
-    print_winner(board)
+class TicTacToe():
+    board = {}
+
+    def draw_game(self):
+        print(' {} | {} | {} '.format(self.board[0, 0], self.board[0, 1], self.board[0, 2]))
+        print('---+---+---')
+        print(' {} | {} | {} '.format(self.board[1, 0], self.board[1, 1], self.board[1, 2]))
+        print('---+---+---')
+        print(' {} | {} | {} '.format(self.board[2, 0], self.board[2, 1], self.board[2, 2]))
+
+    def init_board(self):
+        for row in range(0, 3):
+            for col in range(0, 3):
+                self.board[row, col] = ' '
+
+    def play(self):
+        players = 'XO'
+        player = 0
+        self.draw_game()
+        while not game_is_done(self.board):
+            move = int(input('What is player {} move? [0-9]\n'.format(players[player])))
+            while not update_game(self.board, move, players[player]):
+                move = int(input('Invalid Move! What is player {} move? [0-9]\n'.format(players[player])))
+            draw_game(self.board)
+            player = (player + 1) % len(players)
+        print_winner(self.board)
 
 if __name__ == '__main__':
     tic_tac_toe()
