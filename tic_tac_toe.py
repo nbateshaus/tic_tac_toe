@@ -46,14 +46,6 @@ def no_moves_left(board):
     return True
 
 
-def game_is_done(board):
-    return three_in_a_row(board) != ' ' or no_moves_left(board)
-
-
-def winner(board):
-    return three_in_a_row(board)
-
-
 def update_game(board, move, player):
     if move > -1 and move < 10:
         row = int(move / 3)
@@ -68,40 +60,52 @@ def update_game(board, move, player):
         return False
 
 
-
-def print_winner(board):
-    player = winner(board)
-    if player == ' ':
-        player = 'Nobody'
-    print('{} wins!'.format(player))
-
-
 class TicTacToe():
-    board = {}
+    def __init__(self, s=None):
+        self.board = {}
+        self.players = 'XO'
+        self.player = 0
+        if s is None:
+            s = '         '
+        for row in range(0, 3):
+            for col in range(0, 3):
+                self.board[row, col] = s[(row * 3) + col]
 
-    def draw_game(self):
+    def draw(self):
         print(' {} | {} | {} '.format(self.board[0, 0], self.board[0, 1], self.board[0, 2]))
         print('---+---+---')
         print(' {} | {} | {} '.format(self.board[1, 0], self.board[1, 1], self.board[1, 2]))
         print('---+---+---')
         print(' {} | {} | {} '.format(self.board[2, 0], self.board[2, 1], self.board[2, 2]))
 
-    def init_board(self):
-        for row in range(0, 3):
-            for col in range(0, 3):
-                self.board[row, col] = ' '
+    def game_is_done(self):
+        return three_in_a_row(self.board) != ' ' or no_moves_left(self.board)
+
+    def winner(self):
+        return three_in_a_row(self.board)
+
+    def print_winner(self):
+        player = self.winner()
+        if player == ' ':
+            player = 'Nobody'
+        print('{} wins!'.format(player))
+
+    def current_player(self):
+        return self.players[self.player]
+
+    def next_player(self):
+        self.player = (self.player + 1) % len(self.players)
 
     def play(self):
-        players = 'XO'
-        player = 0
-        self.draw_game()
-        while not game_is_done(self.board):
-            move = int(input('What is player {} move? [0-9]\n'.format(players[player])))
-            while not update_game(self.board, move, players[player]):
-                move = int(input('Invalid Move! What is player {} move? [0-9]\n'.format(players[player])))
-            draw_game(self.board)
-            player = (player + 1) % len(players)
-        print_winner(self.board)
+        self.draw()
+        while not self.game_is_done():
+            move = int(input('What is player {} move? [0-9]\n'.format(self.current_player())))
+            while not update_game(self.board, move, self.current_player()):
+                move = int(input('Invalid Move! What is player {} move? [0-9]\n'.format(self.current_player())))
+            self.draw()
+            self.next_player()
+        self.print_winner()
 
 if __name__ == '__main__':
-    tic_tac_toe()
+    ttt = TicTacToe()
+    ttt.play()
