@@ -28,16 +28,6 @@ def tiar_diagonal(board):
     return ' '
 
 
-def three_in_a_row(board):
-    player = tiar_horizontal(board)
-    if player != ' ':
-        return player
-    player = tiar_vertical(board)
-    if player != ' ':
-        return player
-    return tiar_diagonal(board)
-
-
 def no_moves_left(board):
     for row in range(0, 3):
         for col in range(0, 3):
@@ -68,10 +58,16 @@ class TicTacToe():
             print('{} wins!'.format(player))
 
     def game_is_done(self):
-        return three_in_a_row(self.board) != ' ' or no_moves_left(self.board)
+        return self.winner() != ' ' or no_moves_left(self.board)
 
     def winner(self):
-        return three_in_a_row(self.board)
+        player = tiar_horizontal(self.board)
+        if player != ' ':
+            return player
+        player = tiar_vertical(self.board)
+        if player != ' ':
+            return player
+        return tiar_diagonal(self.board)
 
     def update_game(self, move):
         if -1 < move < 10:
