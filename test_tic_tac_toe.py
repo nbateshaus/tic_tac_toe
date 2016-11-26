@@ -14,56 +14,48 @@ class TestTicTacToe(TestCase):
         ttt = TicTacToe('XXX      ')
         ttt.draw()
         assert ttt.game_is_done()
-        ttt.print_winner()
 
         print()
 
         ttt = TicTacToe('   XXX   ')
         ttt.draw()
         assert ttt.game_is_done()
-        ttt.print_winner()
 
         print()
 
         ttt = TicTacToe('      XXX')
         ttt.draw()
         assert ttt.game_is_done()
-        ttt.print_winner()
 
         print()
 
         ttt = TicTacToe('X  X  X  ')
         ttt.draw()
         assert ttt.game_is_done()
-        ttt.print_winner()
 
         print()
 
         ttt = TicTacToe(' X  X  X ')
         ttt.draw()
         assert ttt.game_is_done()
-        ttt.print_winner()
 
         print()
 
         ttt = TicTacToe('  X  X  X')
         ttt.draw()
         assert ttt.game_is_done()
-        ttt.print_winner()
 
         print()
 
         ttt = TicTacToe('X   X   X')
         ttt.draw()
         assert ttt.game_is_done()
-        ttt.print_winner()
 
         print()
 
         ttt = TicTacToe('  X X X  ')
         ttt.draw()
         assert ttt.game_is_done()
-        ttt.print_winner()
 
         print()
 

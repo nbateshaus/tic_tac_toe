@@ -77,18 +77,15 @@ class TicTacToe():
         print(' {} | {} | {} '.format(self.board[1, 0], self.board[1, 1], self.board[1, 2]))
         print('---+---+---')
         print(' {} | {} | {} '.format(self.board[2, 0], self.board[2, 1], self.board[2, 2]))
+        player = self.winner()
+        if player != ' ':
+            print('{} wins!'.format(player))
 
     def game_is_done(self):
         return three_in_a_row(self.board) != ' ' or no_moves_left(self.board)
 
     def winner(self):
         return three_in_a_row(self.board)
-
-    def print_winner(self):
-        player = self.winner()
-        if player == ' ':
-            player = 'Nobody'
-        print('{} wins!'.format(player))
 
     def current_player(self):
         return self.players[self.player]
@@ -104,7 +101,6 @@ class TicTacToe():
                 move = int(input('Invalid Move! What is player {} move? [0-9]\n'.format(self.current_player())))
             self.draw()
             self.next_player()
-        self.print_winner()
 
 if __name__ == '__main__':
     ttt = TicTacToe()
