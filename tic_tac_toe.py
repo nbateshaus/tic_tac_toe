@@ -46,20 +46,6 @@ def no_moves_left(board):
     return True
 
 
-def update_game(board, move, player):
-    if move > -1 and move < 10:
-        row = int(move / 3)
-        col = move % 3
-        print('board[{}, {}]={}'.format(row, col, player))
-        if board[row, col] == ' ':
-            board[row, col] = player
-            return True
-        else:
-            return False
-    else:
-        return False
-
-
 class TicTacToe():
     def __init__(self, s=None):
         self.board = {}
@@ -87,6 +73,19 @@ class TicTacToe():
     def winner(self):
         return three_in_a_row(self.board)
 
+    def update_game(self, move):
+        if -1 < move < 10:
+            row = int(move / 3)
+            col = move % 3
+            print('board[{}, {}]={}'.format(row, col, self.current_player()))
+            if self.board[row, col] == ' ':
+                self.board[row, col] = self.current_player()
+                return True
+            else:
+                return False
+        else:
+            return False
+
     def current_player(self):
         return self.players[self.player]
 
@@ -97,7 +96,7 @@ class TicTacToe():
         self.draw()
         while not self.game_is_done():
             move = int(input('What is player {} move? [0-9]\n'.format(self.current_player())))
-            while not update_game(self.board, move, self.current_player()):
+            while not self.update_game(move):
                 move = int(input('Invalid Move! What is player {} move? [0-9]\n'.format(self.current_player())))
             self.draw()
             self.next_player()
