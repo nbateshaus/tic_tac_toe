@@ -2,7 +2,8 @@ from unittest import TestCase
 
 from tic_tac_toe import TicTacToe
 
-class TestTic_tac_toe(TestCase):
+
+class TestTicTacToe(TestCase):
     def test_game_is_done(self):
         ttt = TicTacToe('         ')
         ttt.draw()
