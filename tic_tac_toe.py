@@ -1,33 +1,3 @@
-def tiar_horizontal(board):
-    for row in range(0, 3):
-        if board[row, 0] == board[row, 1] and \
-           board[row, 0] == board[row, 2] and \
-           board[row, 0] != ' ':
-            return board[row, 0]
-    return ' '
-
-
-def tiar_vertical(board):
-    for col in range(0, 3):
-        if board[0, col] == board[1, col] and \
-           board[0, col] == board[2, col] and \
-           board[0, col] != ' ':
-            return board[0, col]
-    return ' '
-
-
-def tiar_diagonal(board):
-    if board[0, 0] == board[1, 1] and \
-       board[0, 0] == board[2, 2] and \
-       board[0, 0] != ' ':
-        return board[0, 0]
-    if board[0, 2] == board[1, 1] and \
-       board[0, 2] == board[2, 0] and \
-       board[0, 2] != ' ':
-        return board[0, 2]
-    return ' '
-
-
 def no_moves_left(board):
     for row in range(0, 3):
         for col in range(0, 3):
@@ -61,13 +31,40 @@ class TicTacToe():
         return self.winner() != ' ' or no_moves_left(self.board)
 
     def winner(self):
-        player = tiar_horizontal(self.board)
+        def horizontal(board):
+            for row in range(0, 3):
+                if board[row, 0] == board[row, 1] and \
+                   board[row, 0] == board[row, 2] and \
+                   board[row, 0] != ' ':
+                    return board[row, 0]
+            return ' '
+
+        def vertical(board):
+            for col in range(0, 3):
+                if board[0, col] == board[1, col] and \
+                   board[0, col] == board[2, col] and \
+                   board[0, col] != ' ':
+                    return board[0, col]
+            return ' '
+
+        def diagonal(board):
+            if board[0, 0] == board[1, 1] and \
+               board[0, 0] == board[2, 2] and \
+               board[0, 0] != ' ':
+                return board[0, 0]
+            if board[0, 2] == board[1, 1] and \
+               board[0, 2] == board[2, 0] and \
+               board[0, 2] != ' ':
+                return board[0, 2]
+            return ' '
+
+        player = horizontal(self.board)
         if player != ' ':
             return player
-        player = tiar_vertical(self.board)
+        player = vertical(self.board)
         if player != ' ':
             return player
-        return tiar_diagonal(self.board)
+        return diagonal(self.board)
 
     def update_game(self, move):
         if -1 < move < 10:
