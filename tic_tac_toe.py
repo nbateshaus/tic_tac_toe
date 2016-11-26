@@ -1,11 +1,3 @@
-def no_moves_left(board):
-    for row in range(0, 3):
-        for col in range(0, 3):
-            if board[row, col] == ' ':
-                return False
-    return True
-
-
 class TicTacToe():
     def __init__(self, s=None):
         self.board = {}
@@ -28,7 +20,7 @@ class TicTacToe():
             print('{} wins!'.format(player))
 
     def game_is_done(self):
-        return self.winner() != ' ' or no_moves_left(self.board)
+        return self.winner() != ' ' or self.no_moves_left()
 
     def winner(self):
         def horizontal(board):
@@ -78,6 +70,13 @@ class TicTacToe():
                 return False
         else:
             return False
+
+    def no_moves_left(self):
+        for row in range(0, 3):
+            for col in range(0, 3):
+                if self.board[row, col] == ' ':
+                    return False
+        return True
 
     def current_player(self):
         return self.players[self.player]
